@@ -1,0 +1,25 @@
+/* This styles the overall page */
+body {
+    /* Path matches your folder structure in image_e7ad1f.png */
+    background-image: url('backgrounds/Blue_landing_page.jpg');
+    background-repeat: repeat;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+}
+
+/* This creates that 'Desktop' vibe for your <main> tag */
+.desktop {
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Centers your window horizontally */
+    align-items: center;     /* Centers your window vertically */
+}
+
+/* This styles the 'Window' div you have in your HTML */
+.window {
+    background-color: #c0c0c0; /* That classic 90s/2000s grey */
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff; /* The 3D bevel look */
+    width: 400px;
+}
