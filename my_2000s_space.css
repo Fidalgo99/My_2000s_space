@@ -1,25 +1,124 @@
-/* This styles the overall page */
 body {
-    /* Path matches your folder structure in image_e7ad1f.png */
     background-image: url('backgrounds/Blue_landing_page.jpg');
     background-repeat: repeat;
-    background-attachment: fixed;
+    font-family: "Courier New", Courier, monospace;
+    color: #ffffff;
     margin: 0;
-    padding: 0;
+    padding: 20px;
 }
 
-/* This creates that 'Desktop' vibe for your <main> tag */
-.desktop {
-    height: 100vh;
+/* Background Selector Style */
+.bg-control-panel {
+    background: #000;
+    border: 1px solid #ff00ff;
+    padding: 5px 15px;
+    position: fixed;
+    top: 0;
+    right: 10px;
+    z-index: 100;
+    font-size: 12px;
+}
+
+/* Centralizing the site layout like a 90s page */
+.site-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #1a1a1a; /* Dark content background */
+    border: 3px double #ffffff;
+    padding: 15px;
+    box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
+}
+
+.main-banner {
+    text-align: center;
+    border-bottom: 2px solid #ffffff;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    background: linear-gradient(to right, #4b0082, #000000, #4b0082);
+}
+
+.glow-text {
+    font-size: 3em;
+    color: #00ffff;
+    text-shadow: 2px 2px #ff00ff;
+    margin: 0;
+}
+
+.content-wrapper {
     display: flex;
-    justify-content: center; /* Centers your window horizontally */
-    align-items: center;     /* Centers your window vertically */
+    gap: 15px;
 }
 
-/* This styles the 'Window' div you have in your HTML */
-.window {
-    background-color: #c0c0c0; /* That classic 90s/2000s grey */
-    border: 2px solid;
-    border-color: #ffffff #808080 #808080 #ffffff; /* The 3D bevel look */
-    width: 400px;
+/* Sidebar Styling */
+.side-nav {
+    width: 200px;
+    background: #000;
+    border: 1px solid #ffffff;
+    padding: 10px;
+}
+
+.nav-title {
+    background: #ffffff;
+    color: #000;
+    text-align: center;
+    margin: -10px -10px 10px -10px;
+    font-size: 14px;
+}
+
+.side-nav ul { list-style: none; padding: 0; }
+.side-nav a { color: #00ff00; text-decoration: none; display: block; padding: 5px 0; }
+.side-nav a:hover { background: #00ff00; color: #000; }
+
+/* Main Content Styling */
+.main-body {
+    flex: 1;
+    background: #000;
+    border: 1px solid #ffffff;
+    padding: 15px;
+}
+
+.section-heading {
+    border-bottom: 1px dashed #ffffff;
+    color: #ffff00;
+    font-size: 18px;
+}
+
+/* Update Log Box */
+.updates-box {
+    border: 1px solid #ffffff;
+    margin: 15px 0;
+}
+
+.box-title {
+    background: #333;
+    margin: 0;
+    padding: 2px 10px;
+    font-size: 12px;
+}
+
+.scroll-text {
+    height: 100px;
+    overflow-y: scroll;
+    padding: 10px;
+    font-size: 12px;
+    background: #0a0a0a;
+}
+
+/* Table and Buttons */
+.pixel-table { width: 100%; border: 1px solid #fff; font-size: 13px; }
+.pixel-table td { padding: 5px; border: 1px solid #444; }
+
+.button-collection {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.site-footer {
+    text-align: center;
+    font-size: 10px;
+    margin-top: 15px;
+    border-top: 1px solid #fff;
 }

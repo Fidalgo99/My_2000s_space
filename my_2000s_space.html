@@ -3,57 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My retro page</title>
+    <title>~ Lucas's Cloud Corner ~</title>
     <link rel="stylesheet" href="my_2000s_space.css">
 </head>
 <body>
 
-    <!-- The "Desktop" background -->
-    <main class="desktop">
-        
-        <!-- The "Window" -->
-        <div class="window">
-            <!-- Title Bar -->
-            <div class="title-bar">
-				<!-- Buttons come first for left-side alignment -->
-				<div class="title-controls">
-					<button>_</button>
-					<button>□</button>
-					<button class="close">X</button>
-				</div>
-				<div class="title-text">Feel free to explore!</div>
-			</div>
+    <div class="bg-control-panel">
+        <label>Select Theme: </label>
+        <select onchange="changeBg(this.value)">
+            <option value="backgrounds/Blue_landing_page.jpg">Blue Tile</option>
+            <option value="backgrounds/optional_bakground1.jpg">Dark Pattern</option>
+            <option value="backgrounds/Optional_background2.jpg">Sandy Tile</option>
+            <option value="backgrounds/eyes_bakground3.jpg">Eyes Pattern</option>
+        </select>
+    </div>
 
-            <!-- Content Area -->
-            <div class="window-body">
-                <nav class="sidebar">
-                    <a href="#">Home</a>
-                    <a href="#">Gallery</a>
-                    <a href="#">Music</a>
-                    <a href="#">About</a>
-                    <div class="status-box">
-                        <p>Status: Online</p>
-                    </div>
-                </nav>
+    <div class="site-container">
+        <header class="main-banner">
+            <h1 class="glow-text">Lucas Fidalgo de Lima</h1>
+            <p>IT Enginner, Linux Enthusiast & Technical support</p>
+        </header>
 
-                <section class="main-content">
-                    <h1>Welcome to my page!</h1>
-                    <p>This site is under construction.</p>
-                    <hr>
-                    <div class="blink">*** NEW UPDATES Eventually! ***</div>
-                    <p>I'm building this site to kill boredom.</p>
-                    <img src="https://via.placeholder.com/150" alt="Construction GIF" class="pixel-art">
-                </section>
-            </div>
-            
-            <!-- Footer bar -->
-            <div class="window-footer">
-                <span>Items: 4</span>
-                <span>My Computer</span>
-            </div>
+        <div class="content-wrapper">
+            <nav class="side-nav">
+                <h3 class="nav-title">Navigation</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="https://www.linkedin.com/in/lucas-fidalgo" target="_blank">LinkedIn</a></li>
+                    <li><a href="#">Projects</a></li>
+                </ul>
+                <hr>
+                <div class="status-box">
+                    <p><strong>Website status: </strong> Under construction	</p>
+                    <img src="gifs/magic.gif" alt="wizard" class="pixel-art">
+                </div>
+            </nav>
+
+            <main class="main-body">
+                <div class="welcome-section">
+                    <h2 class="section-heading">WELCOME TO MY PAGE</h2>
+                    <p>More content here soon!</p>
+                    <p>
+					  <img src=under-construction.jpg style="height: 400px; vertical-align: middle;" alt="wizard">
+					</p>
+                </div>
+                
+                <div class="button-collection">
+                    <img src="gifs/firefox.gif" alt="Firefox">
+                    <img src="gifs/notepadpowered.gif" alt="Notepad">
+                    <img src="gifs/web3no.gif" alt="No Web3">
+                    <img src="gifs/gc_japan.gif" alt="Japan">
+                </div>
+            </main>
         </div>
+        
+        <footer class="site-footer">
+            <p>Not copyrighted, obviously | Visitor: 000574</p>
+        </footer>
+    </div>
 
-    </main>
-
+    <script>
+        function changeBg(imgPath) {
+            document.body.style.backgroundImage = "url('" + imgPath + "')";
+        }
+    </script>
 </body>
 </html>
