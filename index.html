@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>~ Lucas's Cloud Corner ~</title>
+    <title>~ Lucas's Corner ~</title>
     <link rel="stylesheet" href="my_2000s_space.css">
 </head>
 <body>
 
     <div class="bg-control-panel">
-        <label>Select Theme: </label>
-        <select onchange="changeBg(this.value)">
+        <label for="theme-selector">Select Theme: </label>
+        <select id="theme-selector" onchange="changeBg(this.value)">
             <option value="backgrounds/Blue_landing_page.jpg">Blue Tile</option>
             <option value="backgrounds/optional_bakground1.jpg">Dark Pattern</option>
             <option value="backgrounds/Optional_background2.jpg">Sandy Tile</option>
@@ -19,41 +19,95 @@
     </div>
 
     <div class="site-container">
+        
         <header class="main-banner">
             <h1 class="glow-text">Lucas Fidalgo de Lima</h1>
-            <p>IT Enginner, Linux Enthusiast & Technical support</p>
+            <p>IT Engineer, Linux Enthusiast & Technical Support</p>
         </header>
 
         <div class="content-wrapper">
+            
             <nav class="side-nav">
                 <h3 class="nav-title">Navigation</h3>
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="https://www.linkedin.com/in/lucas-fidalgo" target="_blank">LinkedIn</a></li>
-                    <li><a href="#">Projects</a></li>
+                    <li><a href="javascript:void(0);" onclick="showHome()">Home</a></li>
+                    <li><a href="https://www.linkedin.com/in/lucas-fidalgo" target="_blank" rel="noopener">LinkedIn</a></li>
+                    <li><a href="javascript:void(0);" onclick="showProjects()">Projects</a></li>
                 </ul>
                 <hr>
                 <div class="status-box">
-                    <p><strong>Website status: </strong> Under construction	</p>
-                    <img src="gifs/magic.gif" alt="wizard" class="pixel-art">
+                    <p><strong>Website status:</strong> Under construction</p>
+                    <img src="images/magic_trick.jpeg" alt="wizard" class="wizard-art" onclick="startMagic()">
                 </div>
             </nav>
 
             <main class="main-body">
-                <div class="welcome-section">
-                    <h2 class="section-heading">WELCOME TO MY PAGE</h2>
-                    <p>More content here soon!</p>
-                    <p>
-					  <img src=under-construction.jpg style="height: 400px; vertical-align: middle;" alt="wizard">
-					</p>
+                
+                <div id="welcome-content">
+                    <section class="welcome-section">
+                        <h2 class="section-heading">WELCOME TO MY PAGE</h2>
+                        
+                        <div class="intro-flex">
+                            <img src="images/my_picture.jpg" class="profile-picture" alt="Lucas">
+                            <p>
+                                I’m Lucas. I’m an IT Engineer based currently in Kraków, but this page isn't really about my CV, it’s about the stuff that keeps me busy when the terminal is closed (and sometimes when it’s open).
+                            </p>
+                        </div>
+
+                        <h3 class="section-heading">The Work Side of Things</h3>
+                        <p>I’ve spent the last few years living inside Linux and tinkering with it, fixing problems from a distance and improving them. I’m currently and constantly working with things like <strong>Azure, Jamf, and Bash</strong>. I like the fast-paced nature of it, but mostly I just like fixing things. If something is broken, I want to be the one to find out why.</p>
+
+                        <h3 class="section-heading">The Machine</h3>
+                        <p>I’m a big believer in knowing exactly what’s happening under the hood. After years of distro-hopping and breaking my OS just to see if I could fix it, I’ve settled on <strong>Debian</strong> running on a <strong>ThinkPad</strong>. It’s predictable, it’s clean, and most importantly, it has zero bloat. I treat my digital workspace the same way I treat my life: if it doesn't serve a purpose, it doesn't need to be there.</p>
+
+                        <h3 class="section-heading">Beyond the Screen</h3>
+                        <p>When I’m not wrangling endpoints or writing scripts, I’m usually looking for a bit of nostalgia or a bit of grease.</p>
+                        
+                        <p><strong>Retro Gaming:</strong> I have a massive appreciation for emulators. There’s something about being able to fire up a game from twenty years ago on modern hardware that never gets old. It’s digital preservation, but mostly it’s just fun.</p>
+
+                        <p><strong>Engines & History:</strong> I’ve always been drawn to cars and motorcycles. It’s not just about the speed; it’s about the history and the stories behind the machines. Every bike or car has a narrative of how it was built and where it’s been. There’s a mechanical honesty in an engine that you don't always find in software.</p>
+                        
+                        <p>I’m always around, usually sharpening some skill or another or planning my next road trip.</p>
+                        
+                        <p><em>Thanks for stopping by my corner of the web :)</em></p>
+                    </section>
+                </div>
+
+                <div id="projects-content" style="display: none;">
+                    <section class="welcome-section">
+                        <h2 class="section-heading">MY PROJECTS</h2>
+                        <p class="project-announcement">
+                            🚀 This website is my first project!
+                        </p>
+                        <p class="back-link">
+                            <a href="javascript:void(0);" onclick="showHome()">[ Back to Home ]</a>
+                        </p>
+                    </section>
                 </div>
                 
                 <div class="button-collection">
-                    <img src="gifs/firefox.gif" alt="Firefox">
-                    <img src="gifs/notepadpowered.gif" alt="Notepad">
-                    <img src="gifs/web3no.gif" alt="No Web3">
-                    <img src="gifs/gc_japan.gif" alt="Japan">
+                    <a href="javascript:void(0);" onclick="triggerButtonResponse('firefox')">
+                        <img src="gifbuttons/firefox.gif" alt="Firefox">
+                    </a>
+                    <a href="javascript:void(0);" onclick="triggerButtonResponse('notepad')">
+                        <img src="gifbuttons/notepadpowered.gif" alt="Notepad">
+                    </a>
+                    <a href="javascript:void(0);" onclick="triggerButtonResponse('web3')">
+                        <img src="gifbuttons/web3no.gif" alt="No Web3">
+                    </a>
+                    <a href="javascript:void(0);" onclick="triggerButtonResponse('japan')">
+                        <img src="gifbuttons/gc_japan.gif" alt="Japan">
+                    </a>
                 </div>
+
+                <div id="button-terminal" style="display: none; margin-top: 20px; border: 2px dashed #ff00ff; padding: 15px; background: #050505;">
+                    <h4 style="color: #ff00ff; margin: 0 0 10px 0; font-size: 14px;">[ TERMINAL BROADCAST ]</h4>
+                    <p id="terminal-text" style="color: #00ff00; font-family: monospace; margin: 0; min-height: 40px;"></p>
+                    <p style="text-align: right; margin: 10px 0 0 0;">
+                        <a href="javascript:void(0);" onclick="closeTerminal()" style="color: #ffff00; text-decoration: none; font-size: 12px;">[ Dismiss ]</a>
+                    </p>
+                </div>
+
             </main>
         </div>
         
@@ -65,6 +119,62 @@
     <script>
         function changeBg(imgPath) {
             document.body.style.backgroundImage = "url('" + imgPath + "')";
+        }
+
+        function startMagic() {
+            document.body.style.transition = "all 2s";
+            document.body.style.filter = "invert(1) hue-rotate(180deg)";
+            setTimeout(() => {
+                alert("YOU HAVE BEEN TRANSPORTED.");
+                window.location.href = "https://pranx.com/windows-xp-simulator/";
+            }, 2000);
+        }
+
+        function showProjects() {
+            document.getElementById('welcome-content').style.display = 'none';
+            document.getElementById('projects-content').style.display = 'block';
+            closeTerminal();
+        }
+
+        function showHome() {
+            document.getElementById('welcome-content').style.display = 'block';
+            document.getElementById('projects-content').style.display = 'none';
+            closeTerminal();
+        }
+
+        // Funny / Edgy responses for the GIF buttons
+        function triggerButtonResponse(buttonType) {
+            const terminal = document.getElementById('button-terminal');
+            const textElement = document.getElementById('terminal-text');
+            
+            let message = "";
+            
+            switch(buttonType) {
+                case 'firefox':
+                    message = "🔥 Firefox detected. Thank you for not feeding the Google monopoly machine. Your soul has been spared from the Chrome tracking net. For now.";
+                    break;
+                case 'notepad':
+                    message = "📝 Powered by Notepad? Absolutely. IDEs are bloated safety blankets for people who are afraid of broken syntax and missing semicolons. Raw-dog your text like it's 2003.";
+                    break;
+                case 'web3':
+                    message = "🚫 Web3: No. Correct. If I wanted to pay $4,000 in fake money for a digital receipt of a JPEG of a bored monkey while destroying the power grid, I'd have a lobotomy instead.";
+                    break;
+                case 'japan':
+                    message = "📡 Eurobeat intensifies. You are dreaming of initial D, midnight mountain passes, and late-90s electronics that last longer than modern human relationships.";
+                    break;
+                default:
+                    message = "Error 404: Cynicism not found.";
+            }
+            
+            textElement.innerText = message;
+            terminal.style.display = 'block';
+            
+            // Auto-scroll down to the terminal box so the user sees it instantly
+            terminal.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function closeTerminal() {
+            document.getElementById('button-terminal').style.display = 'none';
         }
     </script>
 </body>
