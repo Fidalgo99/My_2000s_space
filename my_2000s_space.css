@@ -222,3 +222,47 @@ body {
         font-size: 2em; /* Shrinks the giant title so it doesn't clip */
     }
 }
+/* === SOUND PANEL === */
+
+.sound-panel {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    width: 220px;
+    background: #000;
+    border: 2px solid #00ffff;
+    padding: 10px;
+    font-size: 12px;
+    z-index: 999;
+    box-shadow: 4px 4px 0px #111;
+}
+
+.sound-header {
+    color: #ff00ff;
+    margin-bottom: 10px;
+    border-bottom: 1px dashed #666;
+    padding-bottom: 5px;
+    font-weight: bold;
+}
+
+.sound-panel label {
+    display: block;
+    margin-bottom: 8px;
+    color: #00ff00;
+    cursor: pointer;
+}
+
+.volume-control {
+    margin-top: 10px;
+    color: #ffff00;
+}
+
+.volume-control input {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.sound-panel input[type="range"] {
+    accent-color: #ff00ff;
+}
+

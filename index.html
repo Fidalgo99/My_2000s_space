@@ -10,7 +10,7 @@
 
     <div class="bg-control-panel">
         <label for="theme-selector">Select Theme: </label>
-        <select id="theme-selector" onchange="changeBg(this.value)">
+        <select id="theme-selector" onchange="playSFX('sfx-click'); changeBg(this.value)">
             <option value="backgrounds/Blue_landing_page.jpg">Blue Tile</option>
             <option value="backgrounds/optional_bakground1.jpg">Dark Pattern</option>
             <option value="backgrounds/Optional_background2.jpg">Sandy Tile</option>
@@ -30,9 +30,9 @@
             <nav class="side-nav">
                 <h3 class="nav-title">Navigation</h3>
                 <ul>
-                    <li><a href="javascript:void(0);" onclick="showHome()">Home</a></li>
-                    <li><a href="https://www.linkedin.com/in/lucas-fidalgo" target="_blank" rel="noopener">LinkedIn</a></li>
-                    <li><a href="javascript:void(0);" onclick="showProjects()">Projects</a></li>
+                    <li><a href="javascript:void(0);" onclick="playSFX('sfx-click'); showHome();">Home</a></li>
+                    <li><a href="https://www.linkedin.com/in/lucas-fidalgo" target="_blank" rel="noopener" onclick="playSFX('sfx-click');">LinkedIn</a></li>
+                    <li><a href="javascript:void(0);" onclick="playSFX('sfx-click'); showProjects();">Projects</a></li>
                 </ul>
                 <hr>
                 <div class="status-box">
@@ -80,22 +80,22 @@
                             🚀 This website is my first project!
                         </p>
                         <p class="back-link">
-                            <a href="javascript:void(0);" onclick="showHome()">[ Back to Home ]</a>
+                            <a href="javascript:void(0);" onclick="playSFX('sfx-click'); showHome()">[ Back to Home ]</a>
                         </p>
                     </section>
                 </div>
                 
                 <div class="button-collection">
-                    <a href="javascript:void(0);" onclick="triggerButtonResponse('firefox')">
+                    <a href="javascript:void(0);" onclick="playSFX('sfx-click'); triggerButtonResponse('firefox')">
                         <img src="gifbuttons/firefox.gif" alt="Firefox">
                     </a>
-                    <a href="javascript:void(0);" onclick="triggerButtonResponse('notepad')">
+                    <a href="javascript:void(0);" onclick="playSFX('sfx-click'); triggerButtonResponse('notepad')">
                         <img src="gifbuttons/notepadpowered.gif" alt="Notepad">
                     </a>
-                    <a href="javascript:void(0);" onclick="triggerButtonResponse('web3')">
+                    <a href="javascript:void(0);" onclick="playSFX('sfx-click'); triggerButtonResponse('web3')">
                         <img src="gifbuttons/web3no.gif" alt="No Web3">
                     </a>
-                    <a href="javascript:void(0);" onclick="triggerButtonResponse('japan')">
+                    <a href="javascript:void(0);" onclick="playSFX('sfx-click'); triggerButtonResponse('japan')">
                         <img src="gifbuttons/gc_japan.gif" alt="Japan">
                     </a>
                 </div>
@@ -104,7 +104,7 @@
                     <h4 style="color: #ff00ff; margin: 0 0 10px 0; font-size: 14px;">[ TERMINAL BROADCAST ]</h4>
                     <p id="terminal-text" style="color: #00ff00; font-family: monospace; margin: 0; min-height: 40px;"></p>
                     <p style="text-align: right; margin: 10px 0 0 0;">
-                        <a href="javascript:void(0);" onclick="closeTerminal()" style="color: #ffff00; text-decoration: none; font-size: 12px;">[ Dismiss ]</a>
+                        <a href="javascript:void(0);" onclick="playSFX('sfx-click'); closeTerminal()" style="color: #ffff00; text-decoration: none; font-size: 12px;">[ Dismiss ]</a>
                     </p>
                 </div>
 
@@ -116,12 +116,37 @@
         </footer>
     </div>
 
+    <audio id="bg-music" src="sound/evgeny_bardyuzha-password-infinity-123276.mp3" loop></audio>
+    <audio id="sfx-dialup" src="sound/freesound_community-the-sound-of-dial-up-internet-6240.mp3"></audio>
+    <audio id="sfx-click" src="sound/universfield-computer-mouse-click-352734.mp3"></audio>
+
+    <div class="sound-panel">
+        <div class="sound-header">[ SOUND MATRIX ]</div>
+        
+        <label>
+            <input type="checkbox" id="toggle-music" onchange="toggleBackgroundMusic()"> 
+            Background Music
+        </label>
+        
+        <label>
+            <input type="checkbox" id="toggle-sfx" checked> 
+            Enable SFX
+        </label>
+        
+        <div class="volume-control">
+            <label for="volume-slider">Volume: <span id="vol-pct">50%</span></label>
+            <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.5" oninput="adjustVolume(this.value)">
+        </div>
+    </div>
+
     <script>
         function changeBg(imgPath) {
             document.body.style.backgroundImage = "url('" + imgPath + "')";
         }
 
         function startMagic() {
+            playSFX('sfx-dialup');
+
             document.body.style.transition = "all 2s";
             document.body.style.filter = "invert(1) hue-rotate(180deg)";
             setTimeout(() => {
@@ -142,7 +167,6 @@
             closeTerminal();
         }
 
-        // Funny / Edgy responses for the GIF buttons
         function triggerButtonResponse(buttonType) {
             const terminal = document.getElementById('button-terminal');
             const textElement = document.getElementById('terminal-text');
@@ -168,13 +192,79 @@
             
             textElement.innerText = message;
             terminal.style.display = 'block';
-            
-            // Auto-scroll down to the terminal box so the user sees it instantly
             terminal.scrollIntoView({ behavior: 'smooth' });
         }
 
         function closeTerminal() {
             document.getElementById('button-terminal').style.display = 'none';
+        }
+
+        // --- AUDIO ENGINE LOGIC ---
+        let musicActive = false;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            adjustVolume(document.getElementById('volume-slider').value);
+            
+            // Listen for clicks on the entire page globally
+            document.addEventListener('click', (event) => {
+                const target = event.target.closest('.side-nav a, .button-collection a, select, .back-link a, #button-terminal a');
+                if (target) {
+                    playSFX('sfx-click');
+                }
+            });
+        });
+
+        function toggleBackgroundMusic() {
+            const music = document.getElementById('bg-music');
+            const checkbox = document.getElementById('toggle-music');
+            
+            if (checkbox.checked) {
+                music.play().catch(err => {
+                    console.log("Autoplay blocked by environment restrictions.");
+                    checkbox.checked = false;
+                });
+                musicActive = true;
+            } else {
+                music.pause();
+                musicActive = false;
+            }
+        }
+
+        function playSFX(audioId) {
+            const sfxEnabled = document.getElementById('toggle-sfx').checked;
+            if (!sfxEnabled) return;
+
+            const sfx = document.getElementById(audioId);
+            if (sfx) {
+                sfx.currentTime = 0; 
+                
+                // Safe Volume Boost: Grab the matrix slider value
+                const currentSliderVal = parseFloat(document.getElementById('volume-slider').value);
+                
+                if (audioId === 'sfx-click') {
+                    // Forces the click to be 3x louder than the baseline slider value (caps at full volume 1.0)
+                    sfx.volume = Math.min(1.0, currentSliderVal * 3); 
+                } else {
+                    sfx.volume = currentSliderVal;
+                }
+
+                sfx.play().catch(e => console.log("Audio stream playback failed."));
+            }
+        }
+
+        function adjustVolume(val) {
+            const bgMusic = document.getElementById('bg-music');
+            const sfxDialup = document.getElementById('sfx-dialup');
+            const sfxClick = document.getElementById('sfx-click');
+            
+            if(bgMusic) bgMusic.volume = val;
+            if(sfxDialup) sfxDialup.volume = val;
+            if(sfxClick) {
+                // Keep the dynamic boost proportional even when sliding the volume bar
+                sfxClick.volume = Math.min(1.0, val * 3);
+            }
+            
+            document.getElementById('vol-pct').innerText = Math.round(val * 100) + "%";
         }
     </script>
 </body>
