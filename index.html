@@ -5,6 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>~ Lucas's Corner ~</title>
     <link rel="stylesheet" href="my_2000s_space.css">
+    <style>
+        /* Retro formatting styling specifically for our new dynamic guestbook inputs */
+        .guestbook-field {
+            background-color: #000000 !important;
+            color: #00ff00 !important;
+            border: 1px solid #ffffff !important;
+            padding: 6px;
+            font-family: "Courier New", Courier, monospace;
+        }
+        .guestbook-field::placeholder {
+            color: #006600;
+        }
+        .guestbook-btn {
+            background: #000;
+            color: #ffff00;
+            border: 2px outset #ffffff;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-family: "Courier New", Courier, monospace;
+            font-weight: bold;
+        }
+        .guestbook-btn:active {
+            border: 2px inset #ffffff;
+        }
+    </style>
 </head>
 <body>
 
@@ -30,9 +55,10 @@
             <nav class="side-nav">
                 <h3 class="nav-title">Navigation</h3>
                 <ul>
-                    <li><a href="javascript:void(0);" onclick="playSFX('sfx-click'); showHome();">Home</a></li>
-                    <li><a href="https://www.linkedin.com/in/lucas-fidalgo" target="_blank" rel="noopener" onclick="playSFX('sfx-click');">LinkedIn</a></li>
-                    <li><a href="javascript:void(0);" onclick="playSFX('sfx-click'); showProjects();">Projects</a></li>
+                    <li><a href="javascript:void(0);" onclick="showHome();">Home</a></li>
+                    <li><a href="https://www.linkedin.com/in/lucas-fidalgo" target="_blank" rel="noopener">LinkedIn</a></li>
+                    <li><a href="javascript:void(0);" onclick="showProjects();">Projects</a></li>
+                    <li><a href="javascript:void(0);" onclick="showGuestbook();">Guestbook</a></li>
                 </ul>
                 <hr>
                 <div class="status-box">
@@ -80,31 +106,57 @@
                             🚀 This website is my first project!
                         </p>
                         <p class="back-link">
-                            <a href="javascript:void(0);" onclick="playSFX('sfx-click'); showHome()">[ Back to Home ]</a>
+                            <a href="javascript:void(0);" onclick="showHome()">[ Back to Home ]</a>
                         </p>
                     </section>
                 </div>
                 
-                <div class="button-collection">
-                    <a href="javascript:void(0);" onclick="playSFX('sfx-click'); triggerButtonResponse('firefox')">
-                        <img src="gifbuttons/firefox.gif" alt="Firefox">
-                    </a>
-                    <a href="javascript:void(0);" onclick="playSFX('sfx-click'); triggerButtonResponse('notepad')">
-                        <img src="gifbuttons/notepadpowered.gif" alt="Notepad">
-                    </a>
-                    <a href="javascript:void(0);" onclick="playSFX('sfx-click'); triggerButtonResponse('web3')">
-                        <img src="gifbuttons/web3no.gif" alt="No Web3">
-                    </a>
-                    <a href="javascript:void(0);" onclick="playSFX('sfx-click'); triggerButtonResponse('japan')">
-                        <img src="gifbuttons/gc_japan.gif" alt="Japan">
-                    </a>
+                <div id="guestbook-content" style="display: none;">
+                    <section class="welcome-section">
+                        <h2 class="section-heading">GUESTBOOK</h2>
+
+                        <p>Leave your digital graffiti below.</p>
+
+                        <div style="margin-bottom: 12px;">
+                            <input type="text" id="guest-name" class="guestbook-field" placeholder="Your handle / nickname" style="width: 250px;">
+                        </div>
+
+                        <div style="margin-bottom: 12px;">
+                            <textarea id="guest-message" class="guestbook-field" placeholder="Type your message here..." style="width: 98%; height: 80px; resize: vertical;"></textarea>
+                        </div>
+
+                        <button class="guestbook-btn" onclick="submitGuestbookEntry()">
+                            Sign Guestbook
+                        </button>
+
+                        <div id="guestbook-entries" style="margin-top: 25px;"></div>
+
+                        <p class="back-link">
+                            <a href="javascript:void(0);" onclick="showHome()">[ Back to Home ]</a>
+                        </p>
+                    </section>
                 </div>
+                
+                <div class="button-collection" style="margin-top: 20px; display: flex; justify-content: center; gap: 10px;">
+					<a href="javascript:void(0);" onclick="triggerButtonResponse('firefox')">
+						<img src="gifbuttons/firefox.gif" alt="Firefox">
+					</a>
+					<a href="javascript:void(0);" onclick="triggerButtonResponse('notepad')">
+						<img src="gifbuttons/notepadpowered.gif" alt="Notepad">
+					</a>
+					<a href="javascript:void(0);" onclick="triggerButtonResponse('web3')">
+						<img src="gifbuttons/web3no.gif" alt="No Web3">
+					</a>
+					<a href="javascript:void(0);" onclick="triggerButtonResponse('japan')">
+						<img src="gifbuttons/gc_japan.gif" alt="Japan">
+					</a>
+				</div>
 
                 <div id="button-terminal" style="display: none; margin-top: 20px; border: 2px dashed #ff00ff; padding: 15px; background: #050505;">
                     <h4 style="color: #ff00ff; margin: 0 0 10px 0; font-size: 14px;">[ TERMINAL BROADCAST ]</h4>
                     <p id="terminal-text" style="color: #00ff00; font-family: monospace; margin: 0; min-height: 40px;"></p>
                     <p style="text-align: right; margin: 10px 0 0 0;">
-                        <a href="javascript:void(0);" onclick="playSFX('sfx-click'); closeTerminal()" style="color: #ffff00; text-decoration: none; font-size: 12px;">[ Dismiss ]</a>
+                        <a href="javascript:void(0);" onclick="closeTerminal()" style="color: #ffff00; text-decoration: none; font-size: 12px;">[ Dismiss ]</a>
                     </p>
                 </div>
 
@@ -112,7 +164,7 @@
         </div>
         
         <footer class="site-footer">
-            <p>Not copyrighted, obviously | Visitor: 000574</p>
+            <p>Not copyrighted, obviously | Visitor: -------</p>
         </footer>
     </div>
 
@@ -139,14 +191,37 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script>
+        // --- API INTEGRATION ARRAYS ---
+        const SUPABASE_URL = "https://lxocjiganbopdcbaomsf.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx4b2NqaWdhbmJvcGRjYmFvbXNmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1NTk0MDYsImV4cCI6MjA5NTEzNTQwNn0.THxXiIS-8C7pDEJ9xa2NI0ZSx_TMXQtUTWmljmDrSWU";
+
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Core initializer
+        window.addEventListener('DOMContentLoaded', () => {
+            adjustVolume(document.getElementById('volume-slider').value);
+            
+            // Execute hitting metric tracking step
+            updateAndFetchVisitorCount();
+
+            // Handle global structural action link click sound effects
+            document.addEventListener('click', (event) => {
+                const target = event.target.closest('.side-nav a, .button-collection a, select, .back-link a, #button-terminal a');
+                if (target) {
+                    playSFX('sfx-click');
+                }
+            });
+        });
+
+        // --- INTERACTIVE SCREEN ROUTERS ---
         function changeBg(imgPath) {
             document.body.style.backgroundImage = "url('" + imgPath + "')";
         }
 
         function startMagic() {
             playSFX('sfx-dialup');
-
             document.body.style.transition = "all 2s";
             document.body.style.filter = "invert(1) hue-rotate(180deg)";
             setTimeout(() => {
@@ -155,22 +230,33 @@
             }, 2000);
         }
 
-        function showProjects() {
-            document.getElementById('welcome-content').style.display = 'none';
-            document.getElementById('projects-content').style.display = 'block';
-            closeTerminal();
-        }
-
         function showHome() {
             document.getElementById('welcome-content').style.display = 'block';
             document.getElementById('projects-content').style.display = 'none';
+            document.getElementById('guestbook-content').style.display = 'none';
             closeTerminal();
+        }
+
+        // Fixed project router view transitions
+        function showProjects() {
+            document.getElementById('welcome-content').style.display = 'none';
+            document.getElementById('projects-content').style.display = 'block';
+            document.getElementById('guestbook-content').style.display = 'none';
+            closeTerminal();
+        }
+
+        // Fixed guestbook router view transitions
+        function showGuestbook() {
+            document.getElementById('welcome-content').style.display = 'none';
+            document.getElementById('projects-content').style.display = 'none';
+            document.getElementById('guestbook-content').style.display = 'block';
+            closeTerminal();
+            loadGuestbook(); // Sync database entries array to display interface frame
         }
 
         function triggerButtonResponse(buttonType) {
             const terminal = document.getElementById('button-terminal');
             const textElement = document.getElementById('terminal-text');
-            
             let message = "";
             
             switch(buttonType) {
@@ -196,23 +282,12 @@
         }
 
         function closeTerminal() {
-            document.getElementById('button-terminal').style.display = 'none';
+            const term = document.getElementById('button-terminal');
+            if (term) term.style.display = 'none';
         }
 
-        // --- AUDIO ENGINE LOGIC ---
+        // --- GLOBAL SOUND PANEL UTILITIES ---
         let musicActive = false;
-
-        window.addEventListener('DOMContentLoaded', () => {
-            adjustVolume(document.getElementById('volume-slider').value);
-            
-            // Listen for clicks on the entire page globally
-            document.addEventListener('click', (event) => {
-                const target = event.target.closest('.side-nav a, .button-collection a, select, .back-link a, #button-terminal a');
-                if (target) {
-                    playSFX('sfx-click');
-                }
-            });
-        });
 
         function toggleBackgroundMusic() {
             const music = document.getElementById('bg-music');
@@ -237,18 +312,14 @@
             const sfx = document.getElementById(audioId);
             if (sfx) {
                 sfx.currentTime = 0; 
-                
-                // Safe Volume Boost: Grab the matrix slider value
                 const currentSliderVal = parseFloat(document.getElementById('volume-slider').value);
                 
                 if (audioId === 'sfx-click') {
-                    // Forces the click to be 3x louder than the baseline slider value (caps at full volume 1.0)
                     sfx.volume = Math.min(1.0, currentSliderVal * 3); 
                 } else {
                     sfx.volume = currentSliderVal;
                 }
-
-                sfx.play().catch(e => console.log("Audio stream playback failed."));
+                sfx.play().catch(e => console.log("Audio resource trigger choked."));
             }
         }
 
@@ -259,13 +330,113 @@
             
             if(bgMusic) bgMusic.volume = val;
             if(sfxDialup) sfxDialup.volume = val;
-            if(sfxClick) {
-                // Keep the dynamic boost proportional even when sliding the volume bar
-                sfxClick.volume = Math.min(1.0, val * 3);
-            }
+            if(sfxClick) sfxClick.volume = Math.min(1.0, val * 3);
             
             document.getElementById('vol-pct').innerText = Math.round(val * 100) + "%";
+        }
+
+        // --- BACKEND REST COMMUNICATION RUNTIMES ---
+        async function loadGuestbook() {
+            const entriesDiv = document.getElementById('guestbook-entries');
+            entriesDiv.innerHTML = "<p style='color: #ffff00;'>Synchronizing with database matrix...</p>";
+
+            const { data, error } = await supabaseClient
+                .from('guestbook')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error("Error fetching guestbook records:", error);
+                entriesDiv.innerHTML = "<p style='color: #ff0000;'>CRITICAL DATABASE ERROR: Synchronization packet drop.</p>";
+                return;
+            }
+
+            if (data.length === 0) {
+                entriesDiv.innerHTML = "<p style='color: #888;'>The matrix logs are blank. Go ahead, write something.</p>";
+                return;
+            }
+
+            let htmlPayload = "";
+            data.forEach(entry => {
+                const entryDate = new Date(entry.created_at).toLocaleString();
+                htmlPayload += `
+                    <div style="border: 1px dashed #ffffff; background: #080808; padding: 10px; margin: 15px 0; font-family: monospace;">
+                        <span style="color: #00ffff; font-weight: bold;">⚡ ${escapeHtml(entry.username)}</span> 
+                        <span style="color: #666; font-size: 11px; float: right;">[${entryDate}]</span>
+                        <p style="color: #fff; margin: 8px 0 0 0; white-space: pre-wrap;">${escapeHtml(entry.message)}</p>
+                    </div>
+                `;
+            });
+            entriesDiv.innerHTML = htmlPayload;
+        }
+
+        async function submitGuestbookEntry() {
+            const nameInput = document.getElementById('guest-name');
+            const messageInput = document.getElementById('guest-message');
+            const username = nameInput.value.trim();
+            const message = messageInput.value.trim();
+
+            if (!username || !message) {
+                alert("ACCESS DENIED: Required input field buffers are null.");
+                return;
+            }
+
+            const { error } = await supabaseClient
+                .from('guestbook')
+                .insert([{ username, message }]);
+
+            if (error) {
+                console.error("Insert error:", error);
+                alert("TRANSMISSION FAIL: Validate if row-level policies were executed inside your query editor.");
+            } else {
+                nameInput.value = "";
+                messageInput.value = "";
+                playSFX('sfx-click');
+                loadGuestbook(); // Refresh list immediately
+            }
+        }
+
+        async function updateAndFetchVisitorCount() {
+            // Read index counter object out of Supabase target row #1
+            const { data, error } = await supabaseClient
+                .from('site_stats')
+                .select('visitor_count')
+                .eq('id', 1)
+                .single();
+
+            if (error) {
+                console.error("Error extracting hit registry analytics:", error);
+                return;
+            }
+
+            const currentCount = parseInt(data.visitor_count) || 0;
+            const newCount = currentCount + 1;
+
+            // Save addition update commit back to core
+            const { error: updateError } = await supabaseClient
+                .from('site_stats')
+                .update({ visitor_count: newCount })
+                .eq('id', 1);
+
+            if (updateError) {
+                console.error("Error committing update state:", updateError);
+                return;
+            }
+
+            // Zero-pad the integer payload up to matching 6 digit odometer rules
+            const paddedCount = String(newCount).padStart(6, '0');
+            const footerPara = document.querySelector('.site-footer p');
+            if (footerPara) {
+                footerPara.innerHTML = `Not copyrighted, obviously | Visitor: ${paddedCount}`;
+            }
+        }
+
+        // Script injection parser protection layer
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
         }
     </script>
 </body>
 </html>
+
+```
